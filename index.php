@@ -19,8 +19,8 @@
 	
 	
 	$yourl = "https://projetesgilazy.herokuapp.com/";
-	$helper = new FacebookRedirectLoginHelper($yourl);
-	$loginUrl = $helper->getLoginUrl();
+	$helper = new FacebookRedirectLoginHelper($y);
+	//$loginUrl = $helper->getLoginUrl();
 	
 	if( isset($_SESSION) && isset($_SESSION['fb_token']))
 	{
