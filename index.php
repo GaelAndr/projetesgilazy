@@ -131,6 +131,6 @@
 		echo "FACEBOOK PROJECT";
 		
 		?>
-		<div class="fb-comments" data-href="http://localhost" data-numposts="7" data-colorscheme="dark"></div>
+		<div class="fb-comments" data-href="https://projetesgilazy.herokuapp.com/" data-numposts="7" data-colorscheme="dark"></div>
 	</body>
 </html>
