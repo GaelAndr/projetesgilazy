@@ -23,9 +23,11 @@
 	if( isset($_SESSION) && isset($_SESSION['fb_token']))
 	{
 		$session = new FacebookSession($_SESSION['fb_token']);
+		echo " \$_SESSION + fbtoken <br/>";
 	}else
 	{
 		$session = $helper->getSessionFromRedirect();
+		echo " pas de fbtoken <br/>";
 	}
 
 	echo "<pre> >>session>> "; var_dump($session); echo "<<<< </pre>";
