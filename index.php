@@ -24,7 +24,8 @@
 	{
 		$session = new FacebookSession($_SESSION['fb_token']);
 		echo " \$_SESSION + fbtoken <br/>";
-	}else
+	}
+		else
 	{
 		$session = $helper->getSessionFromRedirect();
 		echo " pas de fbtoken <br/>";
@@ -115,7 +116,7 @@
 					print_r($user);
 					echo "</pre>";
 				}else{
-					$loginUrl = $helper->getLoginUrl(["email"]);
+					$loginUrl = $helper->getLoginUrl();
 					echo "<a href='".$loginUrl."'>Se connecter</a>";
 				}
 		
