@@ -97,7 +97,7 @@
 		
 		
 
-				if($session)
+			 if($session)
 				{
 					$token = (string) $session->getAccessToken();
 					$_SESSION['fb_token'] = $token;
