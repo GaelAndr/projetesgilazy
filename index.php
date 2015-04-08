@@ -1,21 +1,35 @@
 <?php
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+
+	
+	// REMPLACER LES LOCALHOST PARTOUT SUR le facebook en url de herokou !
 	session_start();
 	
 	require 'facebook-php-sdk-v4-4.0-dev/autoload.php';
 	
 	use Facebook\FacebookSession;
 	use Facebook\FacebookRedirectLoginHelper;
+	use Facebook\FacebookRequest;
 	
 	const APPID = "460381927453941";
 	const APPSECRET = "4b671fbfa5febea144c5b5944603188d";
 	
 	FacebookSession::setDefaultApplication(APPID, APPSECRET);
 	
-	$helper = new FacebookRedirectLoginHelper("http://localhost");
+	$helper = new FacebookRedirectLoginHelper("https://projetesgilazy.herokuapp.com/");
 	$loginUrl = $helper->getLoginUrl();
 	
-
-?><!doctype html>
+	if( isset($_SESSION) && isset($_SESSION['fb_token']))
+	{
+		$session = new FacebookSession($_SESSION['fb_token']);
+	}else
+	{
+		$session = $helper->getSessionFromRedirect();
+	}
+	
+?>
+<!doctype html>
 <html>
 	<head>
 		<script>
@@ -39,7 +53,7 @@
 	<body>
 		<div>
 		<?php
-		
+		/*
 			try {
 				$session = $helper->getSessionFromRedirect();
 			} catch(FacebookRequestException $ex) {
@@ -52,9 +66,57 @@
 				echo ' TOTO ET TATA TOTOTENT ';
 			} else {
 				echo '<a href="'.$loginUrl.'" > Se connecter </a>';
+			}*/
+			
+		/* connexion sessione t storage*/
+		/*
+			if ()
+			{
+				
+			}
+			else {
+				$session = $helper->getSessionFromRedirect();
+				$token = (string) $session->getAccessToken();
+				$_SESSION['fb_token'] = $token;
 			}
 			
-		?>
+			/* test si la session existe*//*
+			if ($session)
+			{
+				//Prepare
+				$request = new FacebookRequest($session, 'GET', '/me');
+				//execute
+				$response = $request->execute();
+				//transform la data en graphObject
+				$user = $response->getGraphObject("Facebook\GraphUser");
+				
+				
+			}else {
+				
+			}*/
+		
+		
+
+				if($session)
+				{
+					$token = (string) $session->getAccessToken();
+					$_SESSION['fb_token'] = $token;
+					//Prepare
+					$request = new FacebookRequest($session, 'GET', '/me');
+					//execute
+					$response = $request->execute();
+					//transform la data graphObject
+					$user = $response->getGraphObject("Facebook\GraphUser");
+					echo "<pre>";
+					print_r($user);
+					echo "</pre>";
+				}else{
+					$loginUrl = $helper->getLoginUrl(["email"]);
+					echo "<a href='".$loginUrl."'>Se connecter</a>";
+				}
+		
+			
+			?>
 		
 		</div>
 	
